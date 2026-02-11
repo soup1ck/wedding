@@ -15,11 +15,7 @@ type CalendarDay = {
 const weddingDate = new Date('2026-07-04T15:00:00+03:00');
 
 const program: ProgramItem[] = [
-  {
-    time: '14:00',
-    title: 'Сбор гостей',
-    description: 'Лёгкий welcome-фуршет, объятия и фото.',
-  },
+  { time: '14:00', title: 'Сбор гостей', description: 'Лёгкий welcome-фуршет, объятия и фото.' },
   {
     time: '15:00',
     title: 'Выездная церемония',
@@ -38,14 +34,8 @@ const program: ProgramItem[] = [
 ];
 
 const details = [
-  {
-    title: 'Локация',
-    text: 'Сабуров Холл — г. Воронеж, Пролетарская, 87в.',
-  },
-  {
-    title: 'Сайт площадки',
-    text: 'https://saburovhall.ru/',
-  },
+  { title: 'Локация', text: 'Сабуров Холл — г. Воронеж, Пролетарская, 87в.' },
+  { title: 'Сайт площадки', text: 'https://saburovhall.ru/' },
   {
     title: 'Подарки',
     text: 'Ваше присутствие — лучший подарок. Если захотите поздравить нас материально, будем благодарны за вклад в наше свадебное путешествие.',
@@ -60,20 +50,8 @@ const venueImages = [
   'https://static.tildacdn.com/tild6233-6165-4134-b539-393930653832/20210709-46-Pano.webp',
 ];
 
-const couplePhotos = [
-  {
-    title: 'Фото жениха и невесты (VK)',
-    image:
-      'https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&w=1200&q=80',
-    link: 'https://vk.com/photos156618815?z=photo156618815_457256115%2Fphoto_feed156618815',
-  },
-  {
-    title: 'Наша история любви',
-    image:
-      'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=80',
-    link: 'https://vk.com/photos156618815?z=photo156618815_457256115%2Fphoto_feed156618815',
-  },
-];
+const couplePhoto =
+  'https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&w=1200&q=80';
 
 const july2026Calendar: CalendarDay[] = [
   { label: 29, isMuted: true },
@@ -131,6 +109,7 @@ const getCountdown = (targetDate: Date, currentTime: number) => {
 export const App = () => {
   const [now, setNow] = useState(() => Date.now());
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isMusicOn, setIsMusicOn] = useState(true);
 
   useEffect(() => {
     const interval = window.setInterval(() => setNow(Date.now()), 60_000);
@@ -146,7 +125,21 @@ export const App = () => {
 
   return (
     <div className="page">
-      <header className="hero section">
+      <div className="music-wrap">
+        <button className="music-toggle" type="button" onClick={() => setIsMusicOn((prev) => !prev)}>
+          {isMusicOn ? '🔇 Выключить музыку' : '🎵 Включить музыку'}
+        </button>
+        {isMusicOn && (
+          <iframe
+            className="music-frame"
+            title="Музыка для приглашения"
+            src="https://music.yandex.ru/iframe/track/144826368/39037296?autoplay=1"
+            allow="autoplay"
+          />
+        )}
+      </div>
+
+      <header className="hero section flowing-card">
         <p className="eyebrow">Wedding invitation</p>
         <h1>Владимир & Анастасия</h1>
         <p className="date">4 июля 2026 · суббота · 15:00</p>
@@ -178,7 +171,7 @@ export const App = () => {
         </a>
       </header>
 
-      <section className="section card story">
+      <section className="section card story flowing-card">
         <h2>Дорогие родные и друзья!</h2>
         <p>
           Мы с огромной радостью приглашаем вас разделить с нами один из самых счастливых дней в
@@ -186,7 +179,7 @@ export const App = () => {
         </p>
       </section>
 
-      <section className="section card">
+      <section className="section card flowing-card">
         <h2>Наша дата в календаре</h2>
         <div className="calendar-header">
           <strong>Июль 2026</strong>
@@ -214,7 +207,7 @@ export const App = () => {
         </div>
       </section>
 
-      <section className="section card">
+      <section className="section card flowing-card">
         <h2>Детали дня</h2>
         <div className="details-grid">
           {details.map((item) => (
@@ -234,7 +227,7 @@ export const App = () => {
         </div>
       </section>
 
-      <section className="section card">
+      <section className="section card flowing-card">
         <h2>Площадка</h2>
         <div className="photo-grid">
           {venueImages.map((image, index) => (
@@ -243,22 +236,14 @@ export const App = () => {
         </div>
       </section>
 
-      <section className="section card">
+      <section className="section card flowing-card">
         <h2>Жених и невеста</h2>
-        <p>
-          Добавили блок с нашими фотографиями и ссылкой на VK-альбом. При открытии можно посмотреть
-          оригиналы.
-        </p>
-        <div className="photo-grid couple-grid">
-          {couplePhotos.map((photo) => (
-            <a key={photo.image} href={photo.link} target="_blank" rel="noreferrer" className="photo-link">
-              <img src={photo.image} alt={photo.title} loading="lazy" />
-            </a>
-          ))}
+        <div className="photo-grid couple-grid single-photo">
+          <img src={couplePhoto} alt="Владимир и Анастасия" loading="lazy" />
         </div>
       </section>
 
-      <section className="section card">
+      <section className="section card flowing-card">
         <h2>Программа</h2>
         <ul className="timeline">
           {program.map((item) => (
@@ -273,7 +258,7 @@ export const App = () => {
         </ul>
       </section>
 
-      <section className="section card">
+      <section className="section card flowing-card">
         <h2>Дресс-код</h2>
         <p>Будем рады, если вы поддержите палитру ice blue в нарядах и аксессуарах.</p>
 
@@ -284,8 +269,8 @@ export const App = () => {
         </div>
       </section>
 
-      <section className="section card" id="rsvp">
-        <h2>RSVP до 1 июня 2026</h2>
+      <section className="section card flowing-card" id="rsvp">
+        <h2>Подтверждение присутствия</h2>
         <p>Пожалуйста, заполните форму, чтобы мы могли комфортно организовать праздник для всех гостей.</p>
 
         <form className="form" onSubmit={handleSubmit}>

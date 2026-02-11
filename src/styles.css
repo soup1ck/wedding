@@ -1,7 +1,7 @@
 :root {
   font-family: 'Inter', 'Segoe UI', sans-serif;
-  color: #20405f;
-  background-color: #edf6ff;
+  color: #1f4264;
+  background-color: #eaf5ff;
 }
 
 * {
@@ -11,9 +11,35 @@
 body {
   margin: 0;
   min-height: 100vh;
+  position: relative;
   background:
-    radial-gradient(circle at top, rgba(249, 253, 255, 0.98) 0, rgba(219, 237, 255, 0.9) 58%, #d3e9fd 100%),
-    linear-gradient(120deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0));
+    radial-gradient(circle at 10% -20%, rgba(255, 255, 255, 0.9), rgba(238, 248, 255, 0.6) 40%, transparent 60%),
+    radial-gradient(circle at 85% 10%, rgba(190, 225, 255, 0.55), rgba(173, 214, 249, 0.15) 45%, transparent 60%),
+    linear-gradient(155deg, #edf7ff 0%, #d8ecff 48%, #e8f4ff 100%);
+  overflow-x: hidden;
+}
+
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  width: 460px;
+  height: 460px;
+  border-radius: 47% 53% 65% 35% / 36% 52% 48% 64%;
+  z-index: -1;
+  filter: blur(2px);
+}
+
+body::before {
+  top: -150px;
+  left: -120px;
+  background: rgba(175, 218, 253, 0.35);
+}
+
+body::after {
+  bottom: -190px;
+  right: -120px;
+  background: rgba(147, 201, 245, 0.3);
 }
 
 a {
@@ -21,22 +47,84 @@ a {
 }
 
 .page {
-  max-width: 940px;
+  max-width: 980px;
   margin: 0 auto;
-  padding: 28px 20px 64px;
+  padding: 28px 20px 72px;
 }
 
 .section {
-  margin-bottom: 22px;
+  margin-bottom: 24px;
+}
+
+.flowing-card {
+  border-radius: 28px 46px 30px 40px;
+  position: relative;
+  overflow: hidden;
+}
+
+.flowing-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(140deg, rgba(129, 189, 238, 0.45), rgba(255, 255, 255, 0.5), rgba(84, 140, 196, 0.35));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.music-wrap {
+  position: sticky;
+  top: 10px;
+  z-index: 10;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.music-frame {
+  width: 220px;
+  height: 52px;
+  border: none;
+  border-radius: 12px;
+  box-shadow: 0 8px 18px rgba(54, 103, 152, 0.18);
+}
+
+.music-toggle,
+.button,
+button {
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.music-toggle {
+  border: none;
+  border-radius: 999px;
+  padding: 10px 16px;
+  color: #f5fbff;
+  background: linear-gradient(120deg, #3f7eb6, #5ea2de);
+  cursor: pointer;
+  font-weight: 600;
+  box-shadow: 0 10px 24px rgba(53, 103, 151, 0.22);
+}
+
+.music-toggle:hover,
+.button:hover,
+button:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 12px 24px rgba(53, 103, 151, 0.24);
+  filter: saturate(1.08);
 }
 
 .hero {
   text-align: center;
-  padding: 76px 30px;
+  padding: 78px 30px;
   border: 1px solid rgba(111, 170, 225, 0.35);
-  border-radius: 28px;
-  background: rgba(244, 250, 255, 0.9);
-  box-shadow: 0 20px 40px rgba(64, 120, 173, 0.14);
+  background: rgba(244, 250, 255, 0.86);
+  box-shadow: 0 20px 44px rgba(64, 120, 173, 0.14);
 }
 
 .eyebrow {
@@ -97,22 +185,18 @@ h1 {
   padding: 12px 22px;
   border-radius: 999px;
   color: #f5fbff;
-  background: #4488c4;
+  background: linear-gradient(120deg, #3f7eb6, #5ea2de);
   text-decoration: none;
   font-weight: 500;
-  transition: transform 0.2s ease;
-}
-
-.button:hover {
-  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(64, 120, 173, 0.22);
 }
 
 .card {
-  background: #f5fbff;
-  border: 1px solid rgba(111, 170, 225, 0.3);
-  border-radius: 20px;
+  backdrop-filter: blur(4px);
+  background: linear-gradient(130deg, rgba(245, 251, 255, 0.9), rgba(235, 246, 255, 0.78));
+  border: 1px solid rgba(111, 170, 225, 0.28);
   padding: 30px;
-  box-shadow: 0 12px 30px rgba(64, 120, 173, 0.09);
+  box-shadow: 0 12px 32px rgba(64, 120, 173, 0.1);
 }
 
 h2 {
@@ -146,7 +230,7 @@ p {
 
 .detail-item {
   padding: 16px;
-  border-radius: 14px;
+  border-radius: 18px 26px 20px 14px;
   background: rgba(255, 255, 255, 0.78);
   border: 1px solid rgba(84, 140, 196, 0.23);
 }
@@ -192,6 +276,28 @@ p {
   justify-content: center;
   flex-direction: column;
   gap: 4px;
+  position: relative;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.calendar-day::after {
+  content: '🔎';
+  position: absolute;
+  top: 4px;
+  right: 6px;
+  font-size: 11px;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.calendar-day:hover {
+  transform: scale(1.1);
+  z-index: 2;
+  box-shadow: 0 12px 18px rgba(64, 120, 173, 0.2);
+}
+
+.calendar-day:hover::after {
+  opacity: 1;
 }
 
 .calendar-day em {
@@ -203,6 +309,20 @@ p {
 .calendar-day.wedding {
   border-color: rgba(225, 78, 121, 0.5);
   background: #ffeef4;
+  animation: weddingPulse 1.9s infinite ease-in-out;
+}
+
+@keyframes weddingPulse {
+  0%,
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(225, 78, 121, 0);
+  }
+
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 8px rgba(225, 78, 121, 0.12);
+  }
 }
 
 .calendar-day.muted {
@@ -225,12 +345,14 @@ p {
   border: 1px solid rgba(84, 140, 196, 0.28);
 }
 
-.couple-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+.single-photo img {
+  height: 480px;
+  object-position: center;
+  border-radius: 28px;
 }
 
-.photo-link {
-  display: block;
+.couple-grid {
+  grid-template-columns: 1fr;
 }
 
 .timeline {
@@ -294,7 +416,7 @@ button {
   border: none;
   border-radius: 999px;
   padding: 11px 18px;
-  background: #4488c4;
+  background: linear-gradient(120deg, #3f7eb6, #5ea2de);
   color: #fff;
   cursor: pointer;
   font-weight: 500;
@@ -310,6 +432,15 @@ button {
   .photo-grid,
   .couple-grid {
     grid-template-columns: 1fr;
+  }
+
+  .single-photo img {
+    height: 360px;
+  }
+
+  .music-wrap {
+    flex-direction: column;
+    align-items: flex-end;
   }
 }
 
@@ -334,5 +465,13 @@ button {
   .calendar-header {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .music-wrap {
+    align-items: stretch;
+  }
+
+  .music-frame {
+    width: 100%;
   }
 }
