@@ -1,0 +1,179 @@
+:root {
+  font-family: 'Inter', 'Segoe UI', sans-serif;
+  color: #3d352f;
+  background-color: #f6f0ea;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at top, #fff7ef 0, #f6f0ea 45%, #ede4db 100%);
+}
+
+.page {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+}
+
+.section {
+  margin-bottom: 24px;
+}
+
+.hero {
+  text-align: center;
+  padding: 68px 28px;
+  border: 1px solid rgba(143, 123, 103, 0.35);
+  border-radius: 24px;
+  background: rgba(255, 248, 241, 0.82);
+  backdrop-filter: blur(2px);
+}
+
+.eyebrow {
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: #8b7663;
+}
+
+h1 {
+  font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+  font-weight: 500;
+  font-size: clamp(42px, 8vw, 74px);
+  margin: 8px 0;
+}
+
+.date,
+.place,
+.countdown {
+  margin: 8px 0;
+  font-size: 18px;
+}
+
+.button {
+  margin-top: 18px;
+  display: inline-block;
+  padding: 12px 22px;
+  border-radius: 999px;
+  color: #fef9f5;
+  background: #8b6c53;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.button:hover {
+  transform: translateY(-1px);
+}
+
+.card {
+  background: #fff8f1;
+  border: 1px solid rgba(143, 123, 103, 0.28);
+  border-radius: 18px;
+  padding: 28px;
+}
+
+h2 {
+  font-family: 'Cormorant Garamond', 'Times New Roman', serif;
+  font-size: 38px;
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-weight: 500;
+}
+
+.story p {
+  font-size: 18px;
+  line-height: 1.65;
+}
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+}
+
+.timeline li {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 14px;
+  align-items: start;
+}
+
+.timeline span {
+  font-weight: 600;
+  color: #7f634e;
+  margin-top: 6px;
+}
+
+.timeline h3 {
+  margin: 0;
+}
+
+.timeline p {
+  margin-top: 5px;
+  margin-bottom: 0;
+}
+
+.palette {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.pill {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(139, 108, 83, 0.35);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.form {
+  display: grid;
+  gap: 14px;
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  font-size: 14px;
+}
+
+input,
+select,
+textarea {
+  border: 1px solid rgba(139, 108, 83, 0.5);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font: inherit;
+  background: #fffdfb;
+}
+
+button {
+  justify-self: start;
+  border: none;
+  border-radius: 999px;
+  padding: 11px 18px;
+  background: #8b6c53;
+  color: #fff;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding: 48px 20px;
+  }
+
+  h2 {
+    font-size: 32px;
+  }
+
+  .timeline li {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+}
