@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap');
+
 :root {
   font-family: 'Inter', 'Segoe UI', sans-serif;
-  color: #1f4264;
-  background-color: #eaf5ff;
+  color: #2a4663;
+  background-color: #edf5ff;
 }
 
 * {
@@ -13,9 +15,8 @@ body {
   min-height: 100vh;
   position: relative;
   background:
-    radial-gradient(circle at 10% -20%, rgba(255, 255, 255, 0.9), rgba(238, 248, 255, 0.6) 40%, transparent 60%),
-    radial-gradient(circle at 85% 10%, rgba(190, 225, 255, 0.55), rgba(173, 214, 249, 0.15) 45%, transparent 60%),
-    linear-gradient(155deg, #edf7ff 0%, #d8ecff 48%, #e8f4ff 100%);
+    radial-gradient(circle at 50% -20%, rgba(255, 255, 255, 0.92) 0, rgba(238, 247, 255, 0.2) 58%, transparent 78%),
+    linear-gradient(170deg, #f7fbff 0%, #e8f2ff 38%, #d6e8fb 100%);
   overflow-x: hidden;
 }
 
@@ -23,33 +24,33 @@ body::before,
 body::after {
   content: '';
   position: fixed;
-  width: 460px;
-  height: 460px;
-  border-radius: 47% 53% 65% 35% / 36% 52% 48% 64%;
-  z-index: -1;
+  width: 440px;
+  height: 440px;
+  border-radius: 50%;
   filter: blur(2px);
+  z-index: -1;
 }
 
 body::before {
-  top: -150px;
-  left: -120px;
-  background: rgba(175, 218, 253, 0.35);
+  left: -160px;
+  top: -120px;
+  background: radial-gradient(circle, rgba(178, 213, 248, 0.46), transparent 70%);
 }
 
 body::after {
-  bottom: -190px;
-  right: -120px;
-  background: rgba(147, 201, 245, 0.3);
+  right: -160px;
+  bottom: -120px;
+  background: radial-gradient(circle, rgba(135, 183, 235, 0.36), transparent 72%);
 }
 
 a {
-  color: #1d5f99;
+  color: #1e5f97;
 }
 
 .page {
-  max-width: 980px;
+  max-width: 1000px;
   margin: 0 auto;
-  padding: 28px 20px 72px;
+  padding: 30px 20px 72px;
 }
 
 .section {
@@ -57,7 +58,7 @@ a {
 }
 
 .flowing-card {
-  border-radius: 28px 46px 30px 40px;
+  border-radius: 28px;
   position: relative;
   overflow: hidden;
 }
@@ -65,14 +66,10 @@ a {
 .flowing-card::before {
   content: '';
   position: absolute;
-  inset: -1px;
-  border-radius: inherit;
-  padding: 1px;
-  background: linear-gradient(140deg, rgba(129, 189, 238, 0.45), rgba(255, 255, 255, 0.5), rgba(84, 140, 196, 0.35));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
+  inset: 0;
   pointer-events: none;
+  border-radius: inherit;
+  border: 1px solid rgba(147, 190, 233, 0.45);
 }
 
 .music-wrap {
@@ -87,124 +84,128 @@ a {
 }
 
 .music-frame {
-  width: 220px;
-  height: 52px;
+  width: 240px;
+  height: 60px;
   border: none;
-  border-radius: 12px;
-  box-shadow: 0 8px 18px rgba(54, 103, 152, 0.18);
+  border-radius: 14px;
+  box-shadow: 0 10px 20px rgba(60, 110, 160, 0.2);
 }
 
 .music-toggle,
 .button,
 button {
-  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .music-toggle {
   border: none;
   border-radius: 999px;
-  padding: 10px 16px;
-  color: #f5fbff;
-  background: linear-gradient(120deg, #3f7eb6, #5ea2de);
+  padding: 11px 17px;
+  color: #f9fcff;
+  background: linear-gradient(120deg, #3b7cb8, #68abdf);
   cursor: pointer;
   font-weight: 600;
-  box-shadow: 0 10px 24px rgba(53, 103, 151, 0.22);
+  box-shadow: 0 10px 20px rgba(53, 103, 151, 0.22);
 }
 
 .music-toggle:hover,
 .button:hover,
 button:hover {
-  transform: translateY(-2px) scale(1.04);
-  box-shadow: 0 12px 24px rgba(53, 103, 151, 0.24);
-  filter: saturate(1.08);
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 14px 24px rgba(53, 103, 151, 0.25);
 }
 
 .hero {
   text-align: center;
-  padding: 78px 30px;
-  border: 1px solid rgba(111, 170, 225, 0.35);
-  background: rgba(244, 250, 255, 0.86);
-  box-shadow: 0 20px 44px rgba(64, 120, 173, 0.14);
+  padding: 96px 30px;
+  border: 1px solid rgba(146, 188, 230, 0.55);
+  background:
+    linear-gradient(165deg, rgba(246, 251, 255, 0.9), rgba(231, 244, 255, 0.78)),
+    url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&w=1800&q=80') center/cover;
+  background-blend-mode: screen;
+  box-shadow: 0 18px 40px rgba(64, 120, 173, 0.14);
 }
 
 .eyebrow {
   margin: 0;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
   font-size: 12px;
-  color: #4a7eab;
+  color: #557fa4;
 }
 
 h1 {
   font-family: 'Cormorant Garamond', 'Times New Roman', serif;
-  font-weight: 500;
-  font-size: clamp(46px, 8vw, 78px);
+  font-weight: 600;
+  font-size: clamp(52px, 8vw, 82px);
   margin: 10px 0;
+  color: #2c4d6e;
 }
 
 .date,
 .place {
-  margin: 7px 0;
+  margin: 8px 0;
   font-size: 18px;
 }
 
 .countdown {
-  margin: 20px auto 0;
-  max-width: 420px;
+  margin: 24px auto 0;
+  max-width: 460px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
+  gap: 12px;
 }
 
 .countdown div,
 .countdown p {
   margin: 0;
-  padding: 10px;
-  border: 1px solid rgba(111, 170, 225, 0.34);
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.74);
+  padding: 11px;
+  border: 1px solid rgba(126, 176, 224, 0.38);
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.82);
 }
 
 .countdown strong {
   display: block;
-  font-size: 28px;
+  font-size: 30px;
   line-height: 1;
-  color: #1c5b91;
+  color: #1d5a91;
 }
 
 .countdown span {
-  font-size: 13px;
+  font-size: 12px;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #4b7090;
+  letter-spacing: 0.09em;
+  color: #537a9d;
 }
 
 .button {
-  margin-top: 20px;
+  margin-top: 22px;
   display: inline-block;
-  padding: 12px 22px;
+  padding: 12px 24px;
   border-radius: 999px;
   color: #f5fbff;
   background: linear-gradient(120deg, #3f7eb6, #5ea2de);
   text-decoration: none;
-  font-weight: 500;
-  box-shadow: 0 10px 22px rgba(64, 120, 173, 0.22);
+  font-weight: 600;
+  box-shadow: 0 10px 22px rgba(64, 120, 173, 0.24);
 }
 
 .card {
   backdrop-filter: blur(4px);
-  background: linear-gradient(130deg, rgba(245, 251, 255, 0.9), rgba(235, 246, 255, 0.78));
-  border: 1px solid rgba(111, 170, 225, 0.28);
-  padding: 30px;
-  box-shadow: 0 12px 32px rgba(64, 120, 173, 0.1);
+  background: linear-gradient(140deg, rgba(248, 252, 255, 0.9), rgba(235, 246, 255, 0.82));
+  border: 1px solid rgba(147, 190, 233, 0.45);
+  padding: 32px;
+  box-shadow: 0 14px 30px rgba(64, 120, 173, 0.1);
 }
 
 h2 {
   font-family: 'Cormorant Garamond', 'Times New Roman', serif;
-  font-size: 40px;
+  font-size: 44px;
   margin-top: 0;
   margin-bottom: 12px;
-  font-weight: 500;
+  font-weight: 600;
+  color: #2f5274;
 }
 
 h3 {
@@ -215,7 +216,7 @@ h3 {
 p {
   margin-top: 8px;
   margin-bottom: 0;
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 .story p {
@@ -229,10 +230,23 @@ p {
 }
 
 .detail-item {
-  padding: 16px;
-  border-radius: 18px 26px 20px 14px;
+  padding: 18px;
+  border-radius: 18px;
   background: rgba(255, 255, 255, 0.78);
-  border: 1px solid rgba(84, 140, 196, 0.23);
+  border: 1px solid rgba(117, 169, 220, 0.28);
+}
+
+.map-wrap {
+  margin-top: 14px;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(117, 169, 220, 0.32);
+}
+
+.map-wrap iframe {
+  width: 100%;
+  height: 320px;
+  border: 0;
 }
 
 .calendar-header {
@@ -276,28 +290,12 @@ p {
   justify-content: center;
   flex-direction: column;
   gap: 4px;
-  position: relative;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.calendar-day::after {
-  content: '🔎';
-  position: absolute;
-  top: 4px;
-  right: 6px;
-  font-size: 11px;
-  opacity: 0;
-  transition: opacity 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .calendar-day:hover {
-  transform: scale(1.1);
-  z-index: 2;
-  box-shadow: 0 12px 18px rgba(64, 120, 173, 0.2);
-}
-
-.calendar-day:hover::after {
-  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 16px rgba(64, 120, 173, 0.16);
 }
 
 .calendar-day em {
@@ -339,16 +337,16 @@ p {
 
 .photo-grid img {
   width: 100%;
-  height: 220px;
+  height: 240px;
   object-fit: cover;
-  border-radius: 14px;
+  border-radius: 16px;
   border: 1px solid rgba(84, 140, 196, 0.28);
 }
 
 .single-photo img {
-  height: 480px;
+  height: 540px;
   object-position: center;
-  border-radius: 28px;
+  border-radius: 24px;
 }
 
 .couple-grid {
@@ -435,7 +433,7 @@ button {
   }
 
   .single-photo img {
-    height: 360px;
+    height: 400px;
   }
 
   .music-wrap {
@@ -446,7 +444,7 @@ button {
 
 @media (max-width: 640px) {
   .hero {
-    padding: 52px 20px;
+    padding: 56px 20px;
   }
 
   h2 {

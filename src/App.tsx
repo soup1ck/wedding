@@ -42,7 +42,7 @@ const details = [
   },
 ];
 
-const palette = ['#eff8ff', '#dcefff', '#bfdfff', '#95c9f5', '#6faee6'];
+const palette = ['#f4f8ff', '#e7f0ff', '#cfe4ff', '#aacff7', '#84bbee'];
 
 const venueImages = [
   'https://static.tildacdn.com/tild6532-3037-4034-a537-393537653632/image_37.webp',
@@ -51,7 +51,10 @@ const venueImages = [
 ];
 
 const couplePhoto =
-  'https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&w=1200&q=80';
+  'https://sun9-41.userapi.com/s/v1/ig2/nzMWGs-pnpxKhMVA62YNhbyR6b3ziwn6K0Y6Zd2oFvd-zwL9QH-1WO122ek8YbMJ12go49NqXSIqW4LXJJwP1SQf.jpg?quality=96&as=32x48,48x72,72x108,108x162,160x240,240x360,360x540,480x720,540x810,640x960,720x1080,853x1280&from=bu&cs=853x0';
+
+const mapSrc =
+  'https://www.openstreetmap.org/export/embed.html?bbox=39.2140%2C51.6665%2C39.2296%2C51.6766&layer=mapnik&marker=51.6712982%2C39.2217884';
 
 const july2026Calendar: CalendarDay[] = [
   { label: 29, isMuted: true },
@@ -224,6 +227,14 @@ export const App = () => {
               )}
             </article>
           ))}
+        </div>
+      </section>
+
+      <section className="section card flowing-card">
+        <h2>Как добраться</h2>
+        <p>Карта расположения площадки — Сабуров Холл, Пролетарская, 87в.</p>
+        <div className="map-wrap">
+          <iframe title="Карта локации" src={mapSrc} loading="lazy" />
         </div>
       </section>
 
