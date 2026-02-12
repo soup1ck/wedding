@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useMemo, useState } from 'react';
+import { FormEvent, useEffect, useMemo, useRef, useState } from 'react';
 
 type ProgramItem = {
   time: string;
@@ -12,7 +12,25 @@ type CalendarDay = {
   isWeddingDay?: boolean;
 };
 
+type StoryPhoto = {
+  src: string;
+  alt: string;
+  caption: string;
+};
+
 const weddingDate = new Date('2026-07-04T15:00:00+03:00');
+
+const childhoodPhoto = new URL('../people/photo_2026-02-12_23-37-46.jpg', import.meta.url).href;
+const schoolPhoto = new URL('../people/photo_2026-02-12_23-38-54.jpg', import.meta.url).href;
+const nowPhoto = new URL('../people/photo_2026-02-12_23-38-50.jpg', import.meta.url).href;
+const dresscodeMoodboard = new URL('../dresscode/photo_2026-02-12_23-38-58.jpg', import.meta.url).href;
+const weddingMarch = new URL('../music/Мендельсон - Свадебный Марш.mp3', import.meta.url).href;
+
+const storyPhotos: StoryPhoto[] = [
+  { src: childhoodPhoto, alt: 'Владимир и Анастасия в детстве', caption: 'От первой дружбы' },
+  { src: schoolPhoto, alt: 'Владимир и Анастасия в школьные годы', caption: 'Через школьные годы' },
+  { src: nowPhoto, alt: 'Владимир и Анастасия сегодня', caption: 'К любви на всю жизнь' },
+];
 
 const program: ProgramItem[] = [
   { time: '14:00', title: 'Сбор гостей', description: 'Лёгкий welcome-фуршет, объятия и фото.' },
@@ -42,16 +60,11 @@ const details = [
   },
 ];
 
-const palette = ['#f4f8ff', '#e7f0ff', '#cfe4ff', '#aacff7', '#84bbee'];
-
 const venueImages = [
   'https://static.tildacdn.com/tild6532-3037-4034-a537-393537653632/image_37.webp',
   'https://static.tildacdn.com/tild6566-3435-4635-b838-336164623539/image_38.webp',
   'https://static.tildacdn.com/tild6233-6165-4134-b539-393930653832/20210709-46-Pano.webp',
 ];
-
-const couplePhoto =
-  'https://sun9-41.userapi.com/s/v1/ig2/nzMWGs-pnpxKhMVA62YNhbyR6b3ziwn6K0Y6Zd2oFvd-zwL9QH-1WO122ek8YbMJ12go49NqXSIqW4LXJJwP1SQf.jpg?quality=96&as=32x48,48x72,72x108,108x162,160x240,240x360,360x540,480x720,540x810,640x960,720x1080,853x1280&from=bu&cs=853x0';
 
 const mapSrc =
   'https://www.openstreetmap.org/export/embed.html?bbox=39.2140%2C51.6665%2C39.2296%2C51.6766&layer=mapnik&marker=51.6712982%2C39.2217884';
@@ -112,12 +125,28 @@ const getCountdown = (targetDate: Date, currentTime: number) => {
 export const App = () => {
   const [now, setNow] = useState(() => Date.now());
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isMusicOn, setIsMusicOn] = useState(true);
+  const [isMusicOn, setIsMusicOn] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     const interval = window.setInterval(() => setNow(Date.now()), 60_000);
     return () => window.clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    if (!audioRef.current) {
+      return;
+    }
+
+    if (isMusicOn) {
+      void audioRef.current.play().catch(() => {
+        setIsMusicOn(false);
+      });
+      return;
+    }
+
+    audioRef.current.pause();
+  }, [isMusicOn]);
 
   const countdown = useMemo(() => getCountdown(weddingDate, now), [now]);
 
@@ -130,16 +159,9 @@ export const App = () => {
     <div className="page">
       <div className="music-wrap">
         <button className="music-toggle" type="button" onClick={() => setIsMusicOn((prev) => !prev)}>
-          {isMusicOn ? '🔇 Выключить музыку' : '🎵 Включить музыку'}
+          {isMusicOn ? 'Выключить музыку' : 'Включить музыку'}
         </button>
-        {isMusicOn && (
-          <iframe
-            className="music-frame"
-            title="Музыка для приглашения"
-            src="https://music.yandex.ru/iframe/track/144826368/39037296?autoplay=1"
-            allow="autoplay"
-          />
-        )}
+        <audio ref={audioRef} className="music-player" src={weddingMarch} controls loop preload="metadata" />
       </div>
 
       <header className="hero section flowing-card">
@@ -150,7 +172,7 @@ export const App = () => {
 
         <div className="countdown" aria-live="polite">
           {countdown.isExpired ? (
-            <p>Мы уже сказали друг другу «Да!» 💙</p>
+            <p>Мы уже сказали друг другу «Да!»</p>
           ) : (
             <>
               <div>
@@ -177,9 +199,21 @@ export const App = () => {
       <section className="section card story flowing-card">
         <h2>Дорогие родные и друзья!</h2>
         <p>
-          Мы с огромной радостью приглашаем вас разделить с нами один из самых счастливых дней в
-          нашей жизни. Будем счастливы отметить этот момент вместе с вами.
+          Мы с огромной радостью приглашаем вас разделить с нами один из самых счастливых дней в нашей жизни.
+          Будем счастливы отметить этот момент вместе с вами.
         </p>
+      </section>
+
+      <section className="section card flowing-card">
+        <h2>Наша история</h2>
+        <div className="history-grid">
+          {storyPhotos.map((photo) => (
+            <figure key={photo.src} className="story-card">
+              <img src={photo.src} alt={photo.alt} loading="lazy" />
+              <figcaption>{photo.caption}</figcaption>
+            </figure>
+          ))}
+        </div>
       </section>
 
       <section className="section card flowing-card">
@@ -248,10 +282,9 @@ export const App = () => {
       </section>
 
       <section className="section card flowing-card">
-        <h2>Жених и невеста</h2>
-        <div className="photo-grid couple-grid single-photo">
-          <img src={couplePhoto} alt="Владимир и Анастасия" loading="lazy" />
-        </div>
+        <h2>Дресс-код</h2>
+        <p>Будем рады, если вы поддержите палитру ice blue в нарядах и аксессуарах.</p>
+        <img className="dresscode-image" src={dresscodeMoodboard} alt="Референс по дресс-коду в оттенках ice blue" />
       </section>
 
       <section className="section card flowing-card">
@@ -267,17 +300,6 @@ export const App = () => {
             </li>
           ))}
         </ul>
-      </section>
-
-      <section className="section card flowing-card">
-        <h2>Дресс-код</h2>
-        <p>Будем рады, если вы поддержите палитру ice blue в нарядах и аксессуарах.</p>
-
-        <div className="palette" aria-label="Рекомендованная цветовая палитра">
-          {palette.map((color) => (
-            <div key={color} className="swatch" style={{ backgroundColor: color }} title={color} />
-          ))}
-        </div>
       </section>
 
       <section className="section card flowing-card" id="rsvp">
@@ -309,7 +331,7 @@ export const App = () => {
 
           <button type="submit">Отправить</button>
 
-          {isSubmitted && <p className="success">Спасибо! Мы получили ваш ответ 💙</p>}
+          {isSubmitted && <p className="success">Спасибо! Мы получили ваш ответ.</p>}
         </form>
       </section>
     </div>
