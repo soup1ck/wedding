@@ -68,30 +68,15 @@ export type HeroWordLetter = {
   rotate: number;
 };
 
-const engagementPhoto01 = new URL(
-  "../../people/photo_2026-03-28_21-24-21_final.jpg",
-  import.meta.url,
-).href;
-const engagementPhoto02 = new URL(
-  "../../people/photo_2026-03-28_21-24-36_final.jpg",
-  import.meta.url,
-).href;
-const engagementPhoto03 = new URL(
-  "../../people/photo_2026-03-28_21-24-39_final.jpg",
-  import.meta.url,
-).href;
-const engagementPhoto04 = new URL(
-  "../../people/photo_2026-03-28_21-24-42_final.jpg",
-  import.meta.url,
-).href;
-const engagementPhoto05 = new URL(
-  "../../people/photo_2026-03-28_21-24-45_final.jpg",
-  import.meta.url,
-).href;
-const engagementPhoto06 = new URL(
-  "../../people/photo_2026-03-28_21-24-48_final.jpg",
-  import.meta.url,
-).href;
+const storyPhoto2018 = new URL("../../people/2018.jpg", import.meta.url).href;
+const storyPhoto2019 = new URL("../../people/2019.jpg", import.meta.url).href;
+const storyPhoto2020 = new URL("../../people/2020.jpg", import.meta.url).href;
+const storyPhoto2021 = new URL("../../people/2021.jpg", import.meta.url).href;
+const storyPhoto2022 = new URL("../../people/2022.jpg", import.meta.url).href;
+const storyPhoto2023 = new URL("../../people/2023.jpg", import.meta.url).href;
+const storyPhoto2024 = new URL("../../people/2024.jpg", import.meta.url).href;
+const storyPhoto2025 = new URL("../../people/2025.jpg", import.meta.url).href;
+const storyPhoto2026 = new URL("../../people/2026.jpg", import.meta.url).href;
 const dresscodeLookModules = import.meta.glob("../../dresscode/*.png", {
   eager: true,
   import: "default",
@@ -199,24 +184,40 @@ export const invitationContent = {
     title: "Наши фото",
     photos: [
       {
-        src: engagementPhoto01,
-        alt: "Ура! Ты приблизил фото, продолжай листать дальше",
+        src: storyPhoto2018,
+        alt: "2018 год",
       },
       {
-        src: engagementPhoto02,
-        alt: "Еще чуть-чуть",
+        src: storyPhoto2019,
+        alt: "2019 год",
       },
       {
-        src: engagementPhoto03,
-        alt: "И еще",
+        src: storyPhoto2020,
+        alt: "2020 год",
       },
       {
-        src: engagementPhoto05,
-        alt: "Почти добрались",
+        src: storyPhoto2021,
+        alt: "2021 год",
       },
       {
-        src: engagementPhoto06,
-        alt: "Тут должно быть что-то с юмором, но вы просто листайте дальше",
+        src: storyPhoto2022,
+        alt: "2022 год",
+      },
+      {
+        src: storyPhoto2023,
+        alt: "2023 год",
+      },
+      {
+        src: storyPhoto2024,
+        alt: "2024 год",
+      },
+      {
+        src: storyPhoto2025,
+        alt: "2025 год",
+      },
+      {
+        src: storyPhoto2026,
+        alt: "2026 год",
       },
     ] satisfies StoryPhoto[],
   },
@@ -305,24 +306,15 @@ export const invitationContent = {
     items: [
       {
         number: "01",
-        text: "Просим вас не дарить нам цветы — сразу после свадьбы мы улетаем в свадебное путешествие и не успеем насладиться их красотой.",
+        text: "Вы можете не переживать по поводу подарка, любая комфортная для вас сумма в конверте приблизит нас к мечте!",
         align: "left",
       },
       {
         number: "02",
-        text: "Вы можете не переживать по поводу подарка, любая комфортная для вас сумма в конверте приблизит нас к мечте!",
+        text: "Будем рады, если вы приедете чуть заранее, чтобы спокойно оставить машину, найти свои места и без спешки разделить с нами начало этого дня.",
         align: "right",
       },
-      {
-        number: "03",
-        text: "Будем признательны, если вы не будете кричать «Горько» во время наших поцелуев. (Только, если чуть-чуть)",
-        align: "left",
-      },
     ] satisfies DetailItem[],
-    image: {
-      src: engagementPhoto04,
-      alt: "Анастасия и Владимир вместе на закате",
-    },
   },
   kissMe: {
     titleLineOne: "Киссми собирается",
@@ -364,11 +356,11 @@ export const invitationContent = {
     fields: {
       fullName: {
         label: "Ваше имя и фамилия",
-        placeholder: "Иван Петров",
+        placeholder: "Михаил Головчанский",
       },
       phone: {
         label: "Номер телефона",
-        placeholder: "+7 (900) 123-45-67",
+        placeholder: "+7 (930) 418-11-06",
       },
       attending: {
         label: "Сможете присутствовать?",
@@ -380,7 +372,7 @@ export const invitationContent = {
       },
       favoriteTrack: {
         label: "Любимый трек",
-        placeholder: "Elvis Presley - Can't Help Falling in Love",
+        placeholder: "Pretty School - Вечеринка",
       },
       drinkPreferences: {
         label: "Предпочтения по напиткам",
@@ -398,7 +390,8 @@ export const invitationContent = {
       },
       message: {
         label: "Комментарий",
-        placeholder: "Есть аллергии / и тд",
+        placeholder:
+          "Есть аллергии/буду в форме вату/привезу бар из Питницы/фамилия на Гра",
       },
     },
     submitLabel: "Отправить",

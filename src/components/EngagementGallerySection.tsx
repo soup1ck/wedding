@@ -38,6 +38,9 @@ export function EngagementGallerySection({
 
   const normalizedSelectedIndex = selectedIndex % photos.length;
   const selectedPhoto = photos[normalizedSelectedIndex];
+  const selectedPhotoCaption = (selectedPhoto.caption ?? selectedPhoto.alt)
+    .replace(/\s*год\s*$/i, "")
+    .trim();
 
   const openAtIndex = (index: number) => {
     setActiveIndex(index);
@@ -151,9 +154,9 @@ export function EngagementGallerySection({
           })}
         </ul>
 
-        {selectedPhoto.caption || selectedPhoto.alt ? (
+        {selectedPhotoCaption ? (
           <p className="engagement-gallery-orbit-caption">
-            {selectedPhoto.caption ?? selectedPhoto.alt}
+            {selectedPhotoCaption} &#10084;
           </p>
         ) : null}
       </section>

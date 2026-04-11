@@ -1035,7 +1035,6 @@ export const App = () => {
               <WeddingDetailsSection
                 title={invitationContent.details.title}
                 items={invitationContent.details.items}
-                image={invitationContent.details.image}
                 style={revealStyle(180)}
               />
             </div>

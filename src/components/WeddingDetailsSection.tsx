@@ -5,7 +5,7 @@ import { ImageWithSkeleton } from "./ImageWithSkeleton";
 type WeddingDetailsSectionProps = {
   title: string;
   items: DetailItem[];
-  image: {
+  image?: {
     src: string;
     alt: string;
   };
@@ -45,19 +45,21 @@ export const WeddingDetailsSection = ({
       ))}
     </ol>
 
-    <figure
-      className="details-photo-card"
-      data-reveal="zoom"
-      style={{ "--reveal-delay": "420ms" } as CSSProperties}
-    >
-      <ImageWithSkeleton
-        wrapperClassName="details-photo-media"
-        className="details-photo"
-        src={image.src}
-        alt={image.alt}
-        loading="lazy"
-        fetchPriority="low"
-      />
-    </figure>
+    {image ? (
+      <figure
+        className="details-photo-card"
+        data-reveal="zoom"
+        style={{ "--reveal-delay": "420ms" } as CSSProperties}
+      >
+        <ImageWithSkeleton
+          wrapperClassName="details-photo-media"
+          className="details-photo"
+          src={image.src}
+          alt={image.alt}
+          loading="lazy"
+          fetchPriority="low"
+        />
+      </figure>
+    ) : null}
   </article>
 );
