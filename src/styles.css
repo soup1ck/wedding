@@ -478,7 +478,7 @@ body::after {
     margin: 0;
     padding: 6px 12px;
     border-radius: 999px;
-    font-family: "Alice RA", cursive;
+    font-family: var(--font-body);
     font-style: normal;
     font-size: 16px;
     color: rgba(41, 79, 112, 0.9);
@@ -3321,7 +3321,7 @@ button,
 }
 
 .dresscode-palette-code {
-    font-family: ui-monospace, "SFMono-Regular", monospace;
+    font-family: var(--font-body);
     font-size: clamp(9px, 1vw, 12px);
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -3650,7 +3650,7 @@ button,
 .details-title {
     margin: 0 0 clamp(34px, 6vw, 72px);
     text-align: center;
-    color: #224765;
+    color: var(--ice-900);
     font-family: var(--font-display);
     font-size: clamp(72px, 10vw, 144px);
     line-height: 0.92;

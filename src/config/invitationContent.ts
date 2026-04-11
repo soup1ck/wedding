@@ -84,8 +84,8 @@ const dresscodeLookModules = import.meta.glob("../../dresscode/*.png", {
 const kissMeCat = new URL("../../kissme/kissmeV2.png", import.meta.url).href;
 const kissMeFlowers = new URL("../../kissme/flowers.png", import.meta.url).href;
 const kissMeBow = new URL("../../kissme/bow.png", import.meta.url).href;
-const weddingMarch = new URL(
-  "../../music/Мендельсон - Свадебный Марш.mp3",
+const invitationAudioTrack = new URL(
+  "../../music/Kiss - I Was Made For Lovin You.mp3",
   import.meta.url,
 ).href;
 const saburovHallPhoto = new URL("../../saburov/saburov.png", import.meta.url)
@@ -149,7 +149,7 @@ export const invitationContent = {
     countdown: 138,
   },
   audio: {
-    src: weddingMarch,
+    src: invitationAudioTrack,
   },
   hero: {
     kicker: "Анастасия и Владимир",

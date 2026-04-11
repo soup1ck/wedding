@@ -1,7 +1,8 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
+  base: command === "build" ? "/wedding/" : "/",
   plugins: [react()],
   assetsInclude: ["**/*.glb"],
   build: {
@@ -29,4 +30,4 @@ export default defineConfig({
       },
     },
   },
-});
+}));
