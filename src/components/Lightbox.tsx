@@ -9,6 +9,8 @@ type LightboxProps = {
   onClose: () => void;
   onNext: () => void;
   onPrev: () => void;
+  allowNavigation?: boolean;
+  showCaption?: boolean;
 };
 
 const FOCUSABLE_SELECTOR =
@@ -20,6 +22,8 @@ export function Lightbox({
   onClose,
   onNext,
   onPrev,
+  allowNavigation = true,
+  showCaption = true,
 }: LightboxProps) {
   const dialogRef = useRef<HTMLDivElement | null>(null);
   const closeButtonRef = useRef<HTMLButtonElement | null>(null);
@@ -27,6 +31,7 @@ export function Lightbox({
   const touchStartXRef = useRef<number | null>(null);
   const currentPhoto = photos[activeIndex];
   const hasMultiplePhotos = photos.length > 1;
+  const canNavigate = allowNavigation && hasMultiplePhotos;
   const photoCaption = currentPhoto.caption ?? currentPhoto.alt;
 
   useEffect(() => {
@@ -49,13 +54,13 @@ export function Lightbox({
         return;
       }
 
-      if (event.key === "ArrowRight" && hasMultiplePhotos) {
+      if (event.key === "ArrowRight" && canNavigate) {
         event.preventDefault();
         onNext();
         return;
       }
 
-      if (event.key === "ArrowLeft" && hasMultiplePhotos) {
+      if (event.key === "ArrowLeft" && canNavigate) {
         event.preventDefault();
         onPrev();
         return;
@@ -89,7 +94,7 @@ export function Lightbox({
 
     document.addEventListener("keydown", handleKeyDown);
     return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [hasMultiplePhotos, onClose, onNext, onPrev]);
+  }, [canNavigate, onClose, onNext, onPrev]);
 
   const handleBackdropMouseDown = (event: MouseEvent<HTMLDivElement>) => {
     if (event.target === event.currentTarget) {
@@ -110,7 +115,7 @@ export function Lightbox({
     const deltaX = endX - touchStartXRef.current;
     touchStartXRef.current = null;
 
-    if (!hasMultiplePhotos || Math.abs(deltaX) < 48) {
+    if (!canNavigate || Math.abs(deltaX) < 48) {
       return;
     }
 
@@ -148,7 +153,7 @@ export function Lightbox({
           <span aria-hidden="true">×</span>
         </button>
 
-        {hasMultiplePhotos ? (
+        {canNavigate ? (
           <button
             className="engagement-lightbox-nav engagement-lightbox-nav--prev"
             type="button"
@@ -174,7 +179,7 @@ export function Lightbox({
           />
         </div>
 
-        {hasMultiplePhotos ? (
+        {canNavigate ? (
           <button
             className="engagement-lightbox-nav engagement-lightbox-nav--next"
             type="button"
@@ -191,7 +196,7 @@ export function Lightbox({
               {activeIndex + 1} / {photos.length}
             </span>
           ) : null}
-          {photoCaption ? (
+          {showCaption && photoCaption ? (
             <p className="engagement-lightbox-caption">{photoCaption}</p>
           ) : null}
         </div>

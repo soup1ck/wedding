@@ -1,4 +1,4 @@
-import { useState, type CSSProperties } from "react";
+import { useId, useState, type CSSProperties } from "react";
 import {
   engagementPhotos,
   type EngagementPhoto,
@@ -18,32 +18,6 @@ type EngagementGallerySectionProps = {
   reveal?: "up" | "left" | "right" | "zoom";
 };
 
-type GallerySlot = {
-  x1: number;
-  x2: number;
-  y1: number;
-  y2: number;
-};
-
-const gallerySlots: GallerySlot[] = [
-  { x1: 2, x2: 6, y1: 1, y2: 4 },
-  { x1: 6, x2: 8, y1: 2, y2: 4 },
-  { x1: 1, x2: 4, y1: 4, y2: 7 },
-  { x1: 4, x2: 7, y1: 4, y2: 7 },
-  { x1: 7, x2: 9, y1: 4, y2: 6 },
-  { x1: 2, x2: 4, y1: 7, y2: 9 },
-  { x1: 4, x2: 7, y1: 7, y2: 10 },
-  { x1: 7, x2: 10, y1: 6, y2: 9 },
-];
-
-const getGallerySlotStyle = (slot: GallerySlot): CSSProperties =>
-  ({
-    "--x1": slot.x1,
-    "--x2": slot.x2,
-    "--y1": slot.y1,
-    "--y2": slot.y2,
-  }) as CSSProperties;
-
 export function EngagementGallerySection({
   id = "engagement-gallery",
   eyebrow = "Моменты",
@@ -55,10 +29,15 @@ export function EngagementGallerySection({
   reveal = "up",
 }: EngagementGallerySectionProps) {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const galleryId = useId();
 
   if (!photos.length) {
     return null;
   }
+
+  const normalizedSelectedIndex = selectedIndex % photos.length;
+  const selectedPhoto = photos[normalizedSelectedIndex];
 
   const openAtIndex = (index: number) => {
     setActiveIndex(index);
@@ -104,40 +83,79 @@ export function EngagementGallerySection({
           ) : null}
         </header>
 
-        <ul className="engagement-gallery-mosaic" aria-label="Галерея фото">
-          {gallerySlots.map((slot, slotIndex) => {
-            const photoIndex = slotIndex % photos.length;
-            const photo = photos[photoIndex];
+        <ul
+          className="engagement-gallery-orbit"
+          aria-label="Галерея фото"
+          style={
+            {
+              "--items": photos.length,
+              "--index": normalizedSelectedIndex,
+            } as CSSProperties
+          }
+        >
+          {photos.map((photo, photoIndex) => {
+            const inputId = `${galleryId}-photo-${photoIndex}`;
 
             return (
               <li
-                key={`${photo.id}-${slotIndex}`}
-                className="engagement-gallery-mosaic-item"
-                style={getGallerySlotStyle(slot)}
+                key={photo.id}
+                className="engagement-gallery-orbit-item"
+                style={{ "--i": photoIndex } as CSSProperties}
               >
+                <input
+                  className="engagement-gallery-orbit-input"
+                  type="radio"
+                  id={inputId}
+                  name={`${galleryId}-gallery-item`}
+                  checked={normalizedSelectedIndex === photoIndex}
+                  onChange={() => setSelectedIndex(photoIndex)}
+                />
+                <label
+                  className="engagement-gallery-orbit-label"
+                  htmlFor={inputId}
+                  aria-label={`Показать фото ${photoIndex + 1} из ${
+                    photos.length
+                  }`}
+                >
+                  <img
+                    src={photo.thumbSrc}
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </label>
                 <button
                   type="button"
-                  className="engagement-gallery-card"
+                  className="engagement-gallery-orbit-photo"
                   onClick={() => openAtIndex(photoIndex)}
                   aria-label={`Открыть фото ${photoIndex + 1} из ${
                     photos.length
                   }`}
+                  tabIndex={
+                    normalizedSelectedIndex === photoIndex ? undefined : -1
+                  }
                 >
                   <ImageWithSkeleton
-                    wrapperClassName="engagement-gallery-card-media"
+                    wrapperClassName="engagement-gallery-orbit-media"
                     src={photo.thumbSrc}
                     alt={photo.alt}
                     width={photo.width}
                     height={photo.height}
-                    loading="lazy"
+                    loading={photoIndex === 0 ? "eager" : "lazy"}
                     decoding="async"
-                    className="engagement-gallery-card-image"
+                    className="engagement-gallery-orbit-image"
                   />
                 </button>
               </li>
             );
           })}
         </ul>
+
+        {selectedPhoto.caption || selectedPhoto.alt ? (
+          <p className="engagement-gallery-orbit-caption">
+            {selectedPhoto.caption ?? selectedPhoto.alt}
+          </p>
+        ) : null}
       </section>
 
       {activeIndex !== null ? (
@@ -147,6 +165,8 @@ export function EngagementGallerySection({
           onClose={closeLightbox}
           onNext={showNext}
           onPrev={showPrev}
+          allowNavigation={false}
+          showCaption={false}
         />
       ) : null}
     </>

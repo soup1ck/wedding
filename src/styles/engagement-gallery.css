@@ -1,14 +1,4 @@
 .engagement-gallery-section {
-    --engagement-progress: var(--scene-progress, 0.64);
-    --engagement-start-scale: 0.72;
-    --engagement-rotation: 270deg;
-    --engagement-tile-size: clamp(38px, 6.4vmin, 92px);
-    --engagement-gap: clamp(4px, 0.65vmin, 9px);
-    --engagement-offset-x: clamp(-34px, -2.4vw, -16px);
-    --engagement-current-scale: calc(
-        var(--engagement-start-scale) +
-            ((1 - var(--engagement-start-scale)) * var(--engagement-progress))
-    );
     display: grid;
     justify-items: center;
     text-align: center;
@@ -40,104 +30,226 @@
     color: rgba(73, 90, 103, 0.82);
 }
 
-.engagement-gallery-mosaic {
+.engagement-gallery-orbit {
+    --base-rotation: 0deg;
+    --full-circle: 360deg;
+    --index: 0;
+    --radius: clamp(190px, 31vw, 350px);
+    --thumb-size: clamp(50px, 5.2vw, 74px);
+    --image-size: clamp(220px, 30vw, 390px);
+    --duration: 320ms;
+    --cards-container-size: calc(var(--radius) * 2);
+    --labels-offset: calc(var(--radius) * -1);
     list-style: none;
-    width: calc((var(--engagement-tile-size) * 9) + (var(--engagement-gap) * 8));
-    max-width: min(100%, 88vw);
+    position: relative;
+    width: min(var(--cards-container-size), 100%);
+    max-width: min(100%, 92vw);
+    height: min(var(--cards-container-size), 92vw);
     aspect-ratio: 1;
-    margin: clamp(22px, 3vw, 42px) auto 0;
+    margin: clamp(26px, 3vw, 44px) auto 0;
     padding: 0;
-    display: grid;
-    grid-template: repeat(9, minmax(0, 1fr)) / repeat(9, minmax(0, 1fr));
-    gap: var(--engagement-gap);
-    transform: translateX(var(--engagement-offset-x))
-        scale(var(--engagement-current-scale))
-        rotate(calc(var(--engagement-rotation) * var(--engagement-progress)));
+    border-radius: 50%;
+    perspective: 1000px;
+    transform: rotate(
+        calc(
+            var(--base-rotation) -
+                (var(--index) * var(--full-circle) / var(--items))
+        )
+    );
     transform-origin: center;
-    transition: transform 0.08s linear;
+    transition: transform var(--duration) ease-in-out;
     will-change: transform;
 }
 
-.engagement-gallery-mosaic-item {
-    min-width: 0;
-    min-height: 0;
-    grid-column: var(--x1) / var(--x2);
-    grid-row: var(--y1) / var(--y2);
-    padding: 0;
-    position: relative;
-    overflow: hidden;
-    border-radius: 8px;
-    background: transparent;
-    box-shadow: none;
-    transform: translateZ(0);
-    contain: paint;
-}
-
-.engagement-gallery-mosaic-item::before {
-    content: none;
-}
-
-.engagement-gallery-card {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    position: relative;
-    display: block;
-    border: none;
-    border-radius: inherit;
-    background: transparent;
-    cursor: zoom-in;
-    overflow: hidden;
-    transform: translateZ(0);
-}
-
-.engagement-gallery-card:focus-visible {
-    outline: 2px solid rgba(243, 249, 255, 0.92);
-    outline-offset: -4px;
-}
-
-.engagement-gallery-card-media {
+.engagement-gallery-orbit-item {
     position: absolute;
     inset: 0;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    place-content: center;
+    transform: rotate(calc(var(--i) * var(--full-circle) / var(--items)));
+    transform-origin: center;
+    pointer-events: none;
+}
+
+.engagement-gallery-orbit-input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+.engagement-gallery-orbit-label {
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    width: var(--thumb-size);
+    height: var(--thumb-size);
+    place-self: center;
+    border-radius: 50%;
+    cursor: pointer;
+    pointer-events: auto;
+    transform: translateY(var(--labels-offset));
+    transition:
+        transform var(--duration) ease-in-out,
+        opacity var(--duration) ease-in-out,
+        filter var(--duration) ease-in-out;
+}
+
+.engagement-gallery-orbit-label img {
+    display: block;
     width: 100%;
     height: 100%;
     border-radius: inherit;
-    background: transparent;
-    transform: rotate(calc(var(--engagement-rotation) * -1 * var(--engagement-progress)));
-    transition: transform 0.08s linear;
-    will-change: transform;
+    object-fit: contain;
+    box-shadow:
+        0 10px 26px rgba(86, 124, 151, 0.16),
+        0 0 0 1px rgba(235, 246, 252, 0.92);
+    transform: rotate(
+        calc(
+            (var(--base-rotation) * -1) -
+                ((var(--i) - var(--index)) * var(--full-circle) / var(--items))
+        )
+    )
+        scale(var(--label-scale, 1));
+    opacity: var(--label-opacity, 0.9);
+    transition:
+        transform var(--duration) ease-in-out,
+        opacity var(--duration) ease-in-out,
+        box-shadow var(--duration) ease-in-out;
 }
 
-.engagement-gallery-card .engagement-gallery-card-media,
-.engagement-gallery-card-media > .image-with-skeleton__placeholder {
-    background: transparent;
+.engagement-gallery-orbit-input:focus-visible
+    + .engagement-gallery-orbit-label {
+    outline: 2px solid rgba(243, 249, 255, 0.95);
+    outline-offset: 5px;
 }
 
-.engagement-gallery-card-media > .image-with-skeleton__placeholder {
+.engagement-gallery-orbit-photo {
+    width: var(--image-size);
+    height: var(--image-size);
+    padding: 0;
+    position: relative;
+    z-index: 2;
+    border: none;
+    background: transparent;
+    cursor: zoom-in;
+    opacity: var(--item-opacity, 0);
+    scale: var(--item-scale, 0);
+    pointer-events: var(--item-pointer-events, none);
+    transform: rotate(
+        calc(
+            (var(--base-rotation) * -1) -
+                ((var(--i) - var(--index)) * var(--full-circle) / var(--items))
+        )
+    );
+    transition:
+        opacity var(--duration) ease-in-out var(--item-delay, 0ms),
+        scale var(--duration) ease-in-out var(--item-delay, 0ms),
+        transform var(--duration) ease-in-out;
+}
+
+.engagement-gallery-orbit-photo:focus-visible {
+    outline: 2px solid rgba(243, 249, 255, 0.95);
+    outline-offset: 8px;
+    border-radius: clamp(12px, 1.6vw, 20px);
+}
+
+.engagement-gallery-orbit-media,
+.engagement-gallery-orbit-media > .image-with-skeleton__placeholder {
+    background: transparent !important;
+}
+
+.engagement-gallery-orbit-media {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+.engagement-gallery-orbit-media > .image-with-skeleton__placeholder {
+    display: none;
     animation: none;
 }
 
-.engagement-gallery-card-media > .image-with-skeleton__placeholder,
-.engagement-gallery-card-media > .engagement-gallery-card-image {
+.engagement-gallery-orbit-media > .image-with-skeleton__placeholder,
+.engagement-gallery-orbit-media > .engagement-gallery-orbit-image {
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 100%;
-    height: 100%;
-    min-width: 100%;
-    min-height: 100%;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    min-width: 0;
+    min-height: 0;
     object-fit: contain;
     transform: translate(-50%, -50%);
     transform-origin: center;
 }
 
-.engagement-gallery-card-image {
+.engagement-gallery-orbit-image {
     display: block;
+    border-radius: clamp(12px, 1.6vw, 20px);
+    box-shadow: none;
     transition:
         transform 0.55s ease,
         opacity 0.32s ease;
 }
+
+.engagement-gallery-orbit-caption {
+    position: relative;
+    z-index: 3;
+    width: min(100%, 42ch);
+    min-height: 2.8em;
+    margin: clamp(22px, 3vw, 42px) auto 0;
+    color: rgba(43, 61, 76, 0.82);
+    font-family: var(--font-display);
+    font-size: clamp(24px, 2.8vw, 38px);
+    line-height: 1.18;
+    text-align: center;
+    text-wrap: balance;
+}
+
+.engagement-gallery-orbit-item:has(.engagement-gallery-orbit-input:checked) {
+    --label-opacity: 0.28;
+    --label-scale: 0.86;
+    --item-scale: 1;
+    --item-opacity: 1;
+    --item-pointer-events: auto;
+    --item-delay: calc(var(--duration) * 0.8);
+    z-index: 4;
+}
+
+.engagement-gallery-orbit:has(.engagement-gallery-orbit-label:hover)
+    .engagement-gallery-orbit-label {
+    --label-scale: 0.82;
+}
+
+.engagement-gallery-orbit-item:has(+ .engagement-gallery-orbit-item
+            > .engagement-gallery-orbit-label:hover)
+    > .engagement-gallery-orbit-label,
+.engagement-gallery-orbit-item:has(.engagement-gallery-orbit-label:hover)
+    + .engagement-gallery-orbit-item
+    > .engagement-gallery-orbit-label {
+    --label-scale: 1.15;
+}
+
+.engagement-gallery-orbit-label:hover {
+    --label-scale: 1.28;
+}
+
+.engagement-gallery-orbit-label:hover img {
+    opacity: 1;
+}
+
 
 .engagement-lightbox-backdrop {
     position: fixed;
@@ -256,20 +368,10 @@
     color: rgba(244, 248, 251, 0.92);
 }
 
-@supports not (transform: rotate(calc(1deg * 1))) {
-    .engagement-gallery-mosaic {
-        transform: translateX(var(--engagement-offset-x)) scale(1)
-            rotate(0deg);
-    }
-
-    .engagement-gallery-card-media {
-        transform: none;
-    }
-}
-
 @media (hover: hover) and (pointer: fine) {
-    .engagement-gallery-card:hover .engagement-gallery-card-image,
-    .engagement-gallery-card:focus-visible .engagement-gallery-card-image {
+    .engagement-gallery-orbit-photo:hover .engagement-gallery-orbit-image,
+    .engagement-gallery-orbit-photo:focus-visible
+        .engagement-gallery-orbit-image {
         transform: translate(-50%, -50%) scale(1.035);
     }
 
@@ -281,14 +383,13 @@
 }
 
 @media (max-width: 699px) {
-    .engagement-gallery-section {
-        --engagement-tile-size: clamp(31px, 9.8vw, 52px);
-        --engagement-gap: 4px;
-        --engagement-offset-x: -10px;
-    }
-
-    .engagement-gallery-mosaic {
-        max-width: min(100%, 94vw);
+    .engagement-gallery-orbit {
+        --radius: clamp(148px, 45vw, 196px);
+        --thumb-size: clamp(40px, 12vw, 54px);
+        --image-size: clamp(170px, 48vw, 226px);
+        width: min(var(--cards-container-size), 94vw);
+        height: min(var(--cards-container-size), 94vw);
+        max-width: 94vw;
     }
 
     .engagement-lightbox {
@@ -323,71 +424,21 @@
 }
 
 @media (min-width: 1180px) {
-    .engagement-gallery-section {
-        --engagement-tile-size: clamp(64px, 6vmin, 104px);
+    .engagement-gallery-orbit {
+        --radius: clamp(330px, 27vw, 430px);
+        --thumb-size: clamp(62px, 4vw, 82px);
+        --image-size: clamp(340px, 26vw, 470px);
     }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .engagement-gallery-section {
-        --engagement-progress: 1;
-    }
-
-    .engagement-gallery-mosaic {
-        transform: translateX(var(--engagement-offset-x)) scale(1) rotate(0deg);
-    }
-
-    .engagement-gallery-card-media {
-        transform: none;
-    }
-
-    .engagement-gallery-mosaic,
-    .engagement-gallery-card-media,
-    .engagement-gallery-card-image,
+    .engagement-gallery-orbit,
+    .engagement-gallery-orbit-label,
+    .engagement-gallery-orbit-label img,
+    .engagement-gallery-orbit-photo,
+    .engagement-gallery-orbit-image,
     .engagement-lightbox-nav,
     .engagement-lightbox-close {
         transition: none;
-    }
-}
-
-@supports (animation-timeline: view()) {
-    .engagement-gallery-section {
-        view-timeline-name: --engagement-gallery-scroll;
-        view-timeline-axis: block;
-    }
-
-    .engagement-gallery-section:not(.scene-card) .engagement-gallery-mosaic {
-        animation: engagement-gallery-scale-up both linear;
-        animation-timeline: --engagement-gallery-scroll;
-        animation-range: entry 10% exit 72%;
-    }
-
-    .engagement-gallery-section:not(.scene-card)
-        .engagement-gallery-card-media {
-        animation: engagement-gallery-image-rotate both linear;
-        animation-timeline: --engagement-gallery-scroll;
-        animation-range: entry 10% exit 72%;
-    }
-}
-
-@keyframes engagement-gallery-scale-up {
-    from {
-        transform: translateX(var(--engagement-offset-x))
-            scale(var(--engagement-start-scale)) rotate(0deg);
-    }
-
-    to {
-        transform: translateX(var(--engagement-offset-x)) scale(1)
-            rotate(var(--engagement-rotation));
-    }
-}
-
-@keyframes engagement-gallery-image-rotate {
-    from {
-        transform: rotate(0deg);
-    }
-
-    to {
-        transform: rotate(calc(var(--engagement-rotation) * -1));
     }
 }
