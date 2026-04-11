@@ -384,12 +384,12 @@
 
 @media (max-width: 699px) {
     .engagement-gallery-orbit {
-        --radius: clamp(148px, 45vw, 196px);
-        --thumb-size: clamp(40px, 12vw, 54px);
-        --image-size: clamp(170px, 48vw, 226px);
-        width: min(var(--cards-container-size), 94vw);
-        height: min(var(--cards-container-size), 94vw);
-        max-width: 94vw;
+        --radius: clamp(128px, 38vw, 168px);
+        --thumb-size: clamp(36px, 10vw, 48px);
+        --image-size: clamp(156px, 43vw, 198px);
+        width: min(var(--cards-container-size), 86vw);
+        height: min(var(--cards-container-size), 86vw);
+        max-width: 86vw;
     }
 
     .engagement-lightbox {
