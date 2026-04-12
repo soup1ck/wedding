@@ -28,6 +28,7 @@ const PROGRAM_HEART_SIZE = 72;
 const PROGRAM_PATH_VIEWBOX_WIDTH = 240;
 const PROGRAM_PATH_VIEWBOX_HEIGHT = 780;
 const RSVP_SUBMIT_TARGET = "rsvp-google-form-submit-target";
+const AUDIO_START_OFFSET_SECONDS = 0.9;
 
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value));
 
@@ -284,6 +285,37 @@ const ProgramHeartIcon = () => (
   </svg>
 );
 
+const MusicToggleIcon = ({ isPlaying }: { isPlaying: boolean }) => (
+  <svg
+    className="music-toggle-icon"
+    viewBox="0 0 48 48"
+    aria-hidden="true"
+    focusable="false"
+  >
+    <path
+      className="music-toggle-speaker"
+      d="M12 20h7l8-7v22l-8-7h-7z"
+    />
+    {isPlaying ? (
+      <>
+        <path
+          className="music-toggle-wave"
+          d="M31 18c3 2.4 4.5 5 4.5 8S34 31.6 31 34"
+        />
+        <path
+          className="music-toggle-wave"
+          d="M35 14c4.5 3.6 6.8 7.6 6.8 12S39.5 34.4 35 38"
+        />
+      </>
+    ) : (
+      <path
+        className="music-toggle-off"
+        d="M14 14l20 20"
+      />
+    )}
+  </svg>
+);
+
 export const App = () => {
   const [submitState, setSubmitState] = useState<
     "idle" | "submitting" | "success" | "error"
@@ -292,8 +324,11 @@ export const App = () => {
   const [introPhase, setIntroPhase] = useState<"closed" | "opening" | "done">(
     "closed",
   );
+  const [hasAudioStarted, setHasAudioStarted] = useState(false);
+  const [isAudioEnabled, setIsAudioEnabled] = useState(false);
   const [isStoryPhotoOpen, setIsStoryPhotoOpen] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const hasAudioOffsetAppliedRef = useRef(false);
   const programPathRef = useRef<SVGPathElement | null>(null);
   const programHeartRef = useRef<HTMLDivElement | null>(null);
   const introTimeoutRef = useRef<number | null>(null);
@@ -345,33 +380,35 @@ export const App = () => {
       return;
     }
 
-    const tryPlay = () => {
-      void audio.play().catch(() => {});
-    };
+    if (!hasAudioStarted || !isAudioEnabled) {
+      audio.pause();
+      return;
+    }
 
-    tryPlay();
+    void audio.play().catch(() => {});
+  }, [hasAudioStarted, isAudioEnabled]);
 
-    const resumeOnInteraction = () => {
-      if (!audio.paused) {
+  useEffect(() => {
+    const audio = audioRef.current;
+    if (!audio) {
+      return;
+    }
+
+    const handleEnded = () => {
+      if (!isAudioEnabled) {
         return;
       }
 
-      tryPlay();
+      audio.currentTime = AUDIO_START_OFFSET_SECONDS;
+      void audio.play().catch(() => {});
     };
 
-    window.addEventListener("click", resumeOnInteraction, {
-      passive: true,
-      once: true,
-    });
-    window.addEventListener("keydown", resumeOnInteraction, {
-      once: true,
-    });
+    audio.addEventListener("ended", handleEnded);
 
     return () => {
-      window.removeEventListener("click", resumeOnInteraction);
-      window.removeEventListener("keydown", resumeOnInteraction);
+      audio.removeEventListener("ended", handleEnded);
     };
-  }, []);
+  }, [isAudioEnabled]);
 
   useEffect(() => {
     if (introPhase === "done") {
@@ -582,11 +619,38 @@ export const App = () => {
       return;
     }
 
+    if (audioRef.current && !hasAudioOffsetAppliedRef.current) {
+      audioRef.current.currentTime = AUDIO_START_OFFSET_SECONDS;
+      hasAudioOffsetAppliedRef.current = true;
+    }
+
+    setHasAudioStarted(true);
+    setIsAudioEnabled(true);
+    void audioRef.current?.play().catch(() => {});
     setIntroPhase("opening");
     introTimeoutRef.current = window.setTimeout(() => {
       setIntroPhase("done");
       introTimeoutRef.current = null;
     }, 1100);
+  };
+
+  const handleToggleMusic = () => {
+    const nextIsEnabled = !isAudioEnabled;
+
+    setHasAudioStarted(true);
+    setIsAudioEnabled(nextIsEnabled);
+
+    if (nextIsEnabled) {
+      if (audioRef.current && !hasAudioOffsetAppliedRef.current) {
+        audioRef.current.currentTime = AUDIO_START_OFFSET_SECONDS;
+        hasAudioOffsetAppliedRef.current = true;
+      }
+
+      void audioRef.current?.play().catch(() => {});
+      return;
+    }
+
+    audioRef.current?.pause();
   };
 
   return (
@@ -610,10 +674,21 @@ export const App = () => {
           ref={audioRef}
           className="music-player"
           src={invitationContent.audio.src}
-          autoPlay
-          loop
           preload="metadata"
         />
+        {introPhase === "done" ? (
+          <button
+            type="button"
+            className={`music-toggle${isAudioEnabled ? " is-playing" : ""}`}
+            onClick={handleToggleMusic}
+            aria-label={
+              isAudioEnabled ? "Выключить музыку" : "Включить музыку"
+            }
+            aria-pressed={isAudioEnabled}
+          >
+            <MusicToggleIcon isPlaying={isAudioEnabled} />
+          </button>
+        ) : null}
 
         <main className="cinema-track">
           <section
