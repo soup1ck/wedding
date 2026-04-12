@@ -1192,6 +1192,7 @@ export const App = () => {
                   <label>
                     {invitationContent.rsvp.fields.favoriteTrack.label}
                     <input
+                      className="rsvp-favorite-track-input"
                       required
                       type="text"
                       name="favoriteTrack"

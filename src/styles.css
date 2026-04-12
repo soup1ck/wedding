@@ -6,9 +6,17 @@
     font-display: swap;
 }
 
+@font-face {
+    font-family: "Sochinyala";
+    src: url("../font/Sochinyala.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
 :root {
-    --font-display: "Alice RA", Georgia, serif;
-    --font-body: "Alice RA", Georgia, serif;
+    --font-display: "Sochinyala", "Alice RA", Georgia, serif;
+    --font-body: "Sochinyala", "Alice RA", Georgia, serif;
     --viewport-height: 100vh;
     --stable-viewport-height: 100vh;
     --space-2xs: clamp(8px, 6px + 0.35vw, 12px);
@@ -22,13 +30,13 @@
     --section-pad-y: clamp(24px, 18px + 2vw, 56px);
     --content-max: 1120px;
     --content-max-wide: 1280px;
-    --type-eyebrow: clamp(24px, 18px + 0.6vw, 32px);
-    --type-body-sm: clamp(24px, 18px + 0.7vw, 32px);
-    --type-body: clamp(30px, 22px + 1vw, 42px);
-    --type-body-lg: clamp(34px, 26px + 1.35vw, 50px);
-    --type-h3: clamp(44px, 34px + 2vw, 68px);
-    --type-h2: clamp(64px, 46px + 3.5vw, 116px);
-    --type-hero-title: clamp(82px, 54px + 6.6vw, 176px);
+    --type-eyebrow: clamp(22px, 17px + 0.5vw, 30px);
+    --type-body-sm: clamp(22px, 17px + 0.6vw, 30px);
+    --type-body: clamp(27px, 21px + 0.8vw, 38px);
+    --type-body-lg: clamp(31px, 24px + 1.1vw, 46px);
+    --type-h3: clamp(40px, 32px + 1.6vw, 60px);
+    --type-h2: clamp(56px, 42px + 2.8vw, 98px);
+    --type-hero-title: clamp(74px, 52px + 5.2vw, 150px);
     --ice-900: #2e3d49;
     --ice-800: #465968;
     --ice-700: #6b7e8c;
@@ -1153,9 +1161,9 @@ h1 {
 
 .hero-kicker {
     margin: 0;
-    font-family: "Alice RA", var(--font-display);
-    font-size: clamp(18px, 4vw, 30px);
-    line-height: 1;
+    font-family: var(--font-display);
+    font-size: clamp(16px, 3.2vw, 24px);
+    line-height: 1.08;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: rgba(248, 251, 255, 0.94);
@@ -1184,9 +1192,9 @@ h1 {
     position: absolute;
     top: var(--hero-word-top);
     left: var(--hero-word-left);
-    font-family: "Alice RA", var(--font-display);
-    font-size: clamp(132px, 26vw, 238px);
-    line-height: 0.72;
+    font-family: "Alice RA", Georgia, serif;
+    font-size: clamp(112px, 24vw, 210px);
+    line-height: 0.82;
     color: var(--hero-blush);
     transform: translate3d(-50%, 0, 0) rotate(var(--hero-word-rotate))
         scale(var(--hero-word-scale));
@@ -1205,17 +1213,18 @@ h1 {
 
 .hero-invitation-eyebrow {
     margin: 0;
-    font-family: "Alice RA", var(--font-display);
-    font-size: clamp(36px, 6.5vw, 72px);
-    line-height: 0.92;
+    font-family: var(--font-display);
+    font-size: clamp(30px, 5.8vw, 58px);
+    line-height: 1;
+    margin-bottom: 10px;
     color: var(--hero-ink);
 }
 
 .hero-names {
     margin: 0;
-    font-family: "Alice RA", var(--font-display);
-    font-size: clamp(52px, 11vw, 96px);
-    line-height: 0.92;
+    font-family: var(--font-display);
+    font-size: clamp(44px, 9.5vw, 78px);
+    line-height: 1;
     font-weight: 400;
     color: var(--hero-ink);
     text-wrap: balance;
@@ -1239,10 +1248,10 @@ h1 {
 
 .ocean-whisper {
     margin-top: 0;
-    font-family: "Alice RA", var(--font-display);
-    font-size: clamp(18px, 3.2vw, 28px);
+    font-family: var(--font-display);
+    font-size: clamp(16px, 2.8vw, 24px);
     font-weight: 400;
-    line-height: 1.34;
+    line-height: 1.42;
     color: rgba(32, 41, 52, 0.88);
     max-width: 24ch;
 }
@@ -2735,15 +2744,19 @@ button {
     }
 
     .hero-names {
+        font-family: var(--font-display);
         font-size: clamp(44px, 12vw, 62px);
+        line-height: 1;
     }
 
     .hero-message {
-        max-width: 19ch;
+        max-width: 22ch;
+        margin-top: 10px;
     }
 
     .ocean-whisper {
-        font-size: 17px;
+        font-size: 16px;
+        line-height: 1.62;
     }
 
     .hero-word {
@@ -2752,6 +2765,7 @@ button {
     }
 
     .hero-word-letter {
+        font-family: "Alice RA", Georgia, serif;
         font-size: clamp(108px, 26vw, 160px);
     }
 
@@ -3082,37 +3096,37 @@ button {
 h1 {
     margin: 0 0 var(--space-xs);
     font-size: var(--type-hero-title);
-    line-height: 0.96;
+    line-height: 1.02;
     max-width: none;
 }
 
 h2 {
     margin-bottom: var(--space-s);
     font-size: var(--type-h2);
-    line-height: 0.98;
+    line-height: 1.02;
 }
 
 h3 {
     font-size: var(--type-h3);
-    line-height: 1.08;
+    line-height: 1.12;
 }
 
 p {
     max-width: 58ch;
     font-size: var(--type-body);
-    line-height: 1.62;
+    line-height: 1.68;
 }
 
 label {
     font-size: var(--type-body-sm);
-    line-height: 1.45;
+    line-height: 1.52;
 }
 
 input,
 select,
 textarea {
     font-size: var(--type-body-sm);
-    line-height: 1.45;
+    line-height: 1.52;
 }
 
 button,
@@ -4220,41 +4234,43 @@ textarea {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     align-items: start;
-    gap: clamp(12px, 2vw, 20px);
+    gap: clamp(8px, 1.2vw, 14px);
 }
 
 .wedding-countdown-unit {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
     align-items: start;
-    gap: clamp(8px, 1vw, 14px);
+    gap: clamp(6px, 0.8vw, 10px);
 }
 
 .wedding-countdown-unit-value {
     display: grid;
     justify-items: center;
-    gap: clamp(8px, 1vw, 14px);
+    gap: clamp(4px, 0.5vw, 8px);
 }
 
 .wedding-countdown-number {
     font-family: var(--font-display);
-    font-size: clamp(58px, 8vw, 120px);
-    line-height: 0.94;
+    font-size: clamp(42px, 4.8vw, 76px);
+    line-height: 0.96;
     color: var(--ice-800);
     font-variant-numeric: tabular-nums;
 }
 
 .wedding-countdown-separator {
     font-family: var(--font-display);
-    font-size: clamp(48px, 6.25vw, 110px);
-    line-height: 0.8;
+    align-self: start;
+    font-size: clamp(30px, 3.2vw, 52px);
+    line-height: 0.9;
     color: rgba(70, 89, 104, 0.72);
-    transform: translateY(-2px);
+    transform: translateY(2px);
 }
 
 .wedding-countdown-label {
-    font-size: clamp(15px, 1.25vw, 21px);
-    letter-spacing: 0.18em;
+    font-size: clamp(12px, 0.8vw, 15px);
+    line-height: 1.1;
+    letter-spacing: 0.12em;
     color: rgba(70, 89, 104, 0.78);
     text-align: center;
 }
@@ -4273,8 +4289,8 @@ textarea {
 
 .wedding-countdown-message p {
     margin: 0;
-    font-size: clamp(35px, 3.1vw, 58px);
-    line-height: 1.46;
+    font-size: clamp(22px, 1.8vw, 34px);
+    line-height: 1.4;
     color: var(--ice-800);
 }
 
@@ -4378,20 +4394,20 @@ textarea {
     }
 
     .wedding-countdown-number {
-        font-size: clamp(38px, 11.25vw, 55px);
+        font-size: clamp(32px, 9vw, 44px);
     }
 
     .wedding-countdown-separator {
-        font-size: clamp(30px, 8.75vw, 45px);
+        font-size: clamp(24px, 7vw, 34px);
     }
 
     .wedding-countdown-label {
-        font-size: 13px;
-        letter-spacing: 0.12em;
+        font-size: 11px;
+        letter-spacing: 0.08em;
     }
 
     .wedding-countdown-message p {
-        font-size: clamp(25px, 7vw, 35px);
+        font-size: clamp(18px, 5.4vw, 24px);
     }
 
     .wedding-countdown-illustration {
@@ -4485,6 +4501,7 @@ textarea {
 }
 
 .hero-word-letter {
+    font-family: "Alice RA", Georgia, serif;
     font-size: clamp(132px, 34vw, 236px);
     line-height: 0.82;
 }
@@ -4500,11 +4517,14 @@ textarea {
 }
 
 .hero-invitation-eyebrow {
+    font-family: var(--font-display);
     font-size: clamp(54px, 40px + 2.8vw, 90px);
     line-height: 1;
+    margin-bottom: 14px;
 }
 
 .hero-names {
+    font-family: var(--font-display);
     font-size: clamp(82px, 56px + 5.8vw, 148px);
     line-height: 0.98;
 }
@@ -4637,6 +4657,7 @@ textarea {
 .program-event-time {
     grid-area: time;
     font-size: clamp(30px, 24px + 1.2vw, 54px);
+    color: var(--hero-blush);
 }
 
 .program-event h3 {
@@ -4871,16 +4892,16 @@ textarea {
 
 @media (max-width: 640px) {
     p {
-        font-size: clamp(24px, 6vw, 34px);
-        line-height: 1.52;
+        font-size: clamp(18px, 4.7vw, 24px);
+        line-height: 1.58;
     }
 
     h2 {
-        font-size: clamp(54px, 11vw, 82px);
+        font-size: clamp(38px, 8.8vw, 56px);
     }
 
     h3 {
-        font-size: clamp(34px, 8vw, 54px);
+        font-size: clamp(28px, 6.8vw, 40px);
     }
 
     label,
@@ -4889,50 +4910,51 @@ textarea {
     textarea,
     .success,
     .error {
-        font-size: clamp(20px, 4.8vw, 28px);
+        font-size: clamp(17px, 4.2vw, 22px);
     }
 
     .eyebrow {
-        font-size: clamp(18px, 4.5vw, 24px);
+        font-size: clamp(16px, 3.8vw, 20px);
     }
 
     .hero-kicker {
-        font-size: clamp(24px, 5vw, 32px);
+        font-size: clamp(18px, 4.2vw, 24px);
     }
 
     .hero-invitation-eyebrow {
-        font-size: clamp(48px, 9vw, 72px);
+        font-size: clamp(34px, 7.8vw, 50px);
     }
 
     .hero-names {
+        font-family: "Alice RA", Georgia, serif;
         font-size: clamp(72px, 14vw, 112px);
     }
 
     .hero-message {
-        font-size: clamp(22px, 5.4vw, 30px);
+        font-size: clamp(18px, 4.6vw, 24px);
         max-width: 20ch;
-        line-height: 1.48;
+        line-height: 1.56;
     }
 
     .ocean-whisper {
-        font-size: clamp(26px, 5.5vw, 34px);
+        font-size: clamp(18px, 4.7vw, 24px);
         max-width: 23ch;
     }
 
     .save-date-item-title {
-        font-size: clamp(42px, 9vw, 58px);
+        font-size: clamp(30px, 7vw, 42px);
     }
 
     .venue-image-title {
-        font-size: clamp(43px, 8.75vw, 60px);
+        font-size: clamp(30px, 7vw, 42px);
     }
 
     .kissme-title {
-        font-size: clamp(64px, 11.6vw, 108px);
+        font-size: clamp(42px, 9.5vw, 68px);
     }
 
     .kissme-subtitle {
-        font-size: clamp(30px, 6vw, 42px);
+        font-size: clamp(22px, 5.2vw, 30px);
     }
 
     .scene--program {
@@ -4996,12 +5018,12 @@ textarea {
 }
 
 p {
-    font-size: clamp(32px, 2.4vw, 46px);
-    line-height: 1.58;
+    font-size: clamp(20px, 1.45vw, 30px);
+    line-height: 1.62;
 }
 
 .eyebrow {
-    font-size: clamp(26px, 1.7vw, 36px);
+    font-size: clamp(18px, 1.1vw, 24px);
 }
 
 button,
@@ -5016,15 +5038,15 @@ textarea,
 .venue-image-copy,
 .venue-address,
 .program-event p {
-    font-size: clamp(28px, 2vw, 40px);
-    line-height: 1.56;
+    font-size: clamp(18px, 1.35vw, 26px);
+    line-height: 1.58;
 }
 
 .story-copy-card p,
 .dresscode-shell p,
 .rsvp-shell > p {
-    font-size: clamp(45px, 3.5vw, 65px);
-    line-height: 1.58;
+    font-size: clamp(18px, 1.4vw, 26px);
+    line-height: 1.64;
 }
 
 .rsvp-date-emphasis {
@@ -5034,8 +5056,8 @@ textarea,
 }
 
 .rsvp-shell label {
-    font-size: clamp(35px, 2.5vw, 50px);
-    line-height: 1.45;
+    font-size: clamp(20px, 1.5vw, 28px);
+    line-height: 1.52;
 }
 
 .rsvp-checkbox-group {
@@ -5049,7 +5071,7 @@ textarea,
     padding: 0;
     margin-bottom: 18px;
     font: inherit;
-    font-size: clamp(35px, 2.5vw, 50px);
+    font-size: clamp(20px, 1.5vw, 28px);
     font-weight: 700;
     line-height: 1.45;
     color: inherit;
@@ -5057,7 +5079,7 @@ textarea,
 
 .rsvp-checkbox-hint {
     margin: 0 0 18px;
-    font-size: clamp(24px, 1.8vw, 32px);
+    font-size: clamp(16px, 1.1vw, 22px);
     line-height: 1.5;
     opacity: 0.72;
 }
@@ -5087,8 +5109,8 @@ textarea,
 .rsvp-shell input,
 .rsvp-shell select,
 .rsvp-shell textarea {
-    font-size: clamp(35px, 2.5vw, 50px);
-    line-height: 1.45;
+    font-size: clamp(18px, 1.35vw, 26px);
+    line-height: 1.5;
 }
 
 .rsvp-shell input::placeholder,
@@ -5097,28 +5119,28 @@ textarea,
 }
 
 .details-text {
-    font-size: clamp(34px, 2.5vw, 52px);
-    line-height: 1.48;
+    font-size: clamp(18px, 1.35vw, 28px);
+    line-height: 1.56;
 }
 
 .hero-message {
-    font-size: clamp(34px, 2.5vw, 52px);
+    font-size: clamp(18px, 1.4vw, 26px);
 }
 
 .ocean-whisper {
-    font-size: clamp(42px, 3.2vw, 58px);
+    font-size: clamp(18px, 1.35vw, 24px);
 }
 
 .story-monogram {
-    font-size: clamp(74px, 4vw, 118px);
+    font-size: clamp(42px, 2.5vw, 72px);
 }
 
 .program-event-time {
-    font-size: clamp(44px, 3vw, 68px);
+    font-size: clamp(26px, 1.8vw, 40px);
 }
 
 .program-event h3 {
-    font-size: clamp(42px, 3.2vw, 64px);
+    font-size: clamp(24px, 1.7vw, 36px);
 }
 
 @media (max-width: 640px) {
@@ -5140,8 +5162,8 @@ textarea,
     }
 
     .kissme-title {
-        font-size: clamp(58px, 13vw, 88px);
-        line-height: 1.02;
+        font-size: clamp(34px, 9vw, 52px);
+        line-height: 1.04;
     }
 
     .kissme-title span:last-child {
@@ -5149,11 +5171,12 @@ textarea,
     }
 
     .kissme-subtitle {
-        font-size: clamp(28px, 7vw, 38px);
+        font-size: clamp(18px, 5vw, 24px);
+        line-height: 1.28;
     }
 
     .kissme-board {
-        width: min(100%, 360px);
+        width: min(100%, 320px);
         aspect-ratio: 1 / 1.28;
     }
 
@@ -5163,7 +5186,7 @@ textarea,
     }
 
     .kissme-complete {
-        font-size: clamp(40px, 10vw, 70px);
+        font-size: clamp(28px, 8vw, 44px);
     }
 
     .details-shell {
@@ -5218,7 +5241,7 @@ textarea,
     }
 
     .hero-composition {
-        row-gap: clamp(18px, 5vw, 28px);
+        row-gap: clamp(24px, 6vw, 34px);
         padding-top: clamp(18px, 5vw, 34px);
         padding-bottom: clamp(78px, 16vw, 120px);
     }
@@ -5226,9 +5249,26 @@ textarea,
     .hero-kicker {
         position: relative;
         z-index: 2;
-        font-size: clamp(30px, 6.2vw, 44px);
+        font-size: clamp(24px, 5.2vw, 34px);
         line-height: 1.08;
         letter-spacing: 0.06em;
+    }
+
+    .hero-invitation {
+        gap: 14px;
+        max-width: min(100%, 25rem);
+    }
+
+    .hero-invitation-eyebrow {
+        font-size: clamp(28px, 7vw, 42px);
+        line-height: 1.02;
+        margin-bottom: 14px;
+    }
+
+    .hero-names {
+        font-family: var(--font-display);
+        font-size: clamp(32px, 8.6vw, 46px);
+        line-height: 1.04;
     }
 
     .hero-flower {
@@ -5273,29 +5313,49 @@ textarea,
 
     .program-events {
         gap: clamp(28px, 7vw, 44px);
-        padding-left: clamp(36px, 12vw, 68px);
+        padding-left: clamp(52px, 14vw, 84px);
     }
 
     .program-event {
-        grid-template-columns: minmax(58px, 74px) minmax(0, 1fr);
-        gap: 10px 12px;
-        padding-left: 12px;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas:
+            "time"
+            "title"
+            "body";
+        gap: 6px;
+        padding-left: 8px;
     }
 
     .program-event-time {
-        font-size: clamp(38px, 8vw, 52px);
+        font-size: clamp(24px, 6vw, 34px);
+        margin-bottom: 2px;
     }
 
     .program-event h3 {
-        font-size: clamp(42px, 8.8vw, 56px);
-        line-height: 1.08;
+        font-size: clamp(26px, 6.8vw, 34px);
+        line-height: 1.12;
     }
 
     .program-event p {
         max-width: 100%;
-        font-size: clamp(30px, 6vw, 40px);
-        line-height: 1.6;
+        font-size: clamp(17px, 4.6vw, 22px);
+        line-height: 1.5;
         color: rgba(70, 85, 98, 0.96);
+    }
+
+    .program-path {
+        left: 6px;
+        width: 56px;
+        opacity: 0.92;
+    }
+
+    .program-heart-track {
+        width: 56px;
+        height: 56px;
+    }
+
+    .program-heart-icon {
+        width: 56px;
     }
 }
 
@@ -5497,6 +5557,7 @@ textarea,
     }
 
     .hero-word-letter {
+        font-family: "Alice RA", Georgia, serif;
         font-size: clamp(148px, 10vw, 210px);
     }
 
@@ -5509,10 +5570,13 @@ textarea,
     }
 
     .hero-invitation-eyebrow {
+        font-family: var(--font-display);
         font-size: clamp(44px, 3.2vw, 70px);
+        margin-bottom: 18px;
     }
 
     .hero-names {
+        font-family: var(--font-display);
         font-size: clamp(72px, 4.5vw, 118px);
         line-height: 0.94;
     }
@@ -5727,6 +5791,82 @@ textarea,
     }
 }
 
+@media (min-width: 900px) {
+    .rsvp-shell {
+        max-width: min(920px, calc(100% - 40px));
+    }
+
+    .rsvp-shell > p {
+        max-width: 34ch;
+        font-size: clamp(20px, 1.35vw, 28px);
+        line-height: 1.5;
+    }
+
+    .rsvp-shell .form {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 22px;
+        padding: 30px 32px 36px;
+    }
+
+    .rsvp-shell .form > * {
+        grid-column: 1;
+    }
+
+    .rsvp-shell label,
+    .rsvp-checkbox-group legend {
+        font-size: clamp(16px, 1.1vw, 22px);
+        line-height: 1.18;
+    }
+
+    .rsvp-shell input,
+    .rsvp-shell select,
+    .rsvp-shell textarea {
+        font-size: clamp(16px, 1vw, 21px);
+        line-height: 1.35;
+    }
+
+    .rsvp-favorite-track-input {
+        font-size: 18px !important;
+    }
+
+    .rsvp-favorite-track-input::placeholder,
+    .rsvp-favorite-track-input::-webkit-input-placeholder {
+        font-size: 14px;
+    }
+
+    .rsvp-checkbox-group {
+        padding: 18px 20px 20px;
+    }
+
+    .rsvp-checkbox-hint {
+        max-width: 48ch;
+        margin-bottom: 12px;
+        font-size: clamp(14px, 0.95vw, 18px);
+        line-height: 1.45;
+        color: rgba(70, 89, 104, 0.82);
+    }
+
+    .rsvp-checkbox-options {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .rsvp-checkbox-option {
+        min-width: 0;
+        min-height: 44px;
+        align-items: flex-start;
+        padding: 10px 12px;
+    }
+
+    .rsvp-checkbox-option span {
+        min-width: 0;
+        font-size: clamp(10px, 0.6vw, 12px);
+        line-height: 1.04;
+        overflow-wrap: normal;
+        word-break: keep-all;
+    }
+}
+
 .rsvp-shell {
     --rsvp-panel-pad: clamp(18px, 4vw, 38px);
     width: min(100%, 760px);
@@ -5842,6 +5982,27 @@ textarea,
     color: rgba(70, 89, 104, 0.44);
 }
 
+.rsvp-favorite-track-input {
+    font-size: 16px !important;
+    line-height: 1.3;
+}
+
+.rsvp-favorite-track-input::placeholder,
+.rsvp-favorite-track-input::-webkit-input-placeholder {
+    font-size: 14px;
+}
+
+@media (min-width: 521px) {
+    .rsvp-favorite-track-input {
+        font-size: 20px !important;
+    }
+
+    .rsvp-favorite-track-input::placeholder,
+    .rsvp-favorite-track-input::-webkit-input-placeholder {
+        font-size: 18px;
+    }
+}
+
 .rsvp-checkbox-group {
     padding: clamp(16px, 2.6vw, 24px);
     border: 1px solid rgba(157, 186, 202, 0.28);
@@ -5922,6 +6083,10 @@ textarea,
     .rsvp-shell .form {
         gap: clamp(18px, 2vw, 28px) clamp(28px, 3vw, 42px);
     }
+
+    .rsvp-checkbox-options {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
 @media (max-width: 760px) {
@@ -5950,6 +6115,38 @@ textarea,
 
     .rsvp-shell .form {
         padding-top: 22px;
+    }
+
+    .rsvp-shell label,
+    .rsvp-checkbox-group legend {
+        font-size: clamp(18px, 5.4vw, 26px);
+        line-height: 1.18;
+    }
+
+    .rsvp-checkbox-group {
+        padding: 14px;
+    }
+
+    .rsvp-checkbox-group legend {
+        display: block;
+        width: 100%;
+        padding: 0;
+        margin-bottom: 8px;
+    }
+
+    .rsvp-checkbox-hint {
+        margin-bottom: 12px;
+        max-width: 100%;
+        font-size: clamp(13px, 3.8vw, 16px);
+        line-height: 1.35;
+        color: rgba(70, 89, 104, 0.84);
+        overflow-wrap: anywhere;
+        word-break: normal;
+        hyphens: auto;
+    }
+
+    .rsvp-checkbox-option span {
+        font-size: clamp(16px, 4.8vw, 22px);
     }
 
     .rsvp-checkbox-options {
